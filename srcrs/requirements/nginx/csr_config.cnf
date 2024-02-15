@@ -1,0 +1,9 @@
+[req]
+default_bits       = 2048
+prompt             = no
+encrypt_key        = des3
+default_md         = sha256
+distinguished_name = req_distinguished_name
+
+[req_distinguished_name]
+CN = ayakoubi.42.fr
