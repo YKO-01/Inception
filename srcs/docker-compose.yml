@@ -1,9 +1,25 @@
 version: '3'
 services:
- myindex:
+ myserver:
   build: requirements/nginx/.
-  image: myweb
+  image: mynginx
   restart: always
   ports:
    - 443:443
   env_file: .env
+  depends_on:
+   - db
+ db:
+  build: requirements/mariadb/.
+  container_name: mymariadb
+  restart: always
+#  environment:
+#   MYSQL_ROOT_PASSWORD: 123456
+#   MYSQL_DATABASE: mydatabase
+#   MYSQL_USER: person
+#   MYSQL_PASSWORD: 1234
+#  ports:
+#   - 3306
+
+volumes:
+ data:

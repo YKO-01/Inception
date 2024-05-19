@@ -10,7 +10,7 @@ stop:
 	docker-compose -f srcs/docker-compose.yml stop
 restart: stop start
 
-fclean:
-	docker image rm myweb
-
+fclean: down
+	docker image rm mynginx srcs-db
+re: fclean build up
 .PHONY: build up start down stop restart
