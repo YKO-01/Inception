@@ -1,25 +1,22 @@
 version: '3'
 services:
- myserver:
-  build: requirements/nginx/.
-  image: mynginx
-  restart: always
-  ports:
-   - 443:443
-  env_file: .env
-  depends_on:
-   - db
- db:
-  build: requirements/mariadb/.
-  container_name: mymariadb
-  restart: always
-#  environment:
-#   MYSQL_ROOT_PASSWORD: 123456
-#   MYSQL_DATABASE: mydatabase
-#   MYSQL_USER: person
-#   MYSQL_PASSWORD: 1234
-#  ports:
-#   - 3306
-
+  myserver:
+    build: requirements/nginx/.
+    image: mynginx
+    restart: always
+    ports:
+    - 443:443
+    env_file: .env
+  db:
+    build: requirements/mariadb/.
+    container_name: mymariadb
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
 volumes:
- data:
+  db_data:
+    driver: local # Define the driver and options under the volume name
+    driver_opts:
+      type: none
+      device: ./data/db_data
+      o: bind

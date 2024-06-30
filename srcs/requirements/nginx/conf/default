@@ -3,7 +3,7 @@ server {
 	
 	root /var/www/html;
 	index index.html index.htm;
-	server_name ayakoubi.42.fr;
+	server_name $DOMAINE_NAME;
 
 #	ssl on;	
 	ssl_certificate /etc/nginx/ssl/ayakoubi.42.fr.crt;

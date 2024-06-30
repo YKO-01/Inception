@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Ensure the runtime directory exists and has the correct permissions
-#mkdir -p /run/mysqld
-#chown -R mysql:mysql /run/mysqld
-#chmod -R 755 /run/mysqld
-
 service mariadb start
 
 mysql -u root -e "CREATE USER IF NOT EXISTS 'ahmed'@'%' IDENTIFIED BY 'password';"
