@@ -6,4 +6,4 @@ default_md         = sha256
 distinguished_name = req_distinguished_name
 
 [req_distinguished_name]
-CN = ${DOMAINE_NAME}
+CN = ayakoubi.42.fr

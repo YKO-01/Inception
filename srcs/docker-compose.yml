@@ -1,5 +1,5 @@
-version: '3'
-services:
+version: '3'	
+services: 
   myserver:
     build: requirements/nginx/.
     image: mynginx
@@ -11,8 +11,19 @@ services:
     build: requirements/mariadb/.
     container_name: mymariadb
     restart: always
+    env_file: .env
     volumes:
       - db_data:/var/lib/mysql
+  # wordpress:
+  #   # depends_on:
+  #   #   - db
+  #   build: requirements/wordpress/.
+  #   container_name: mywordpress
+  #   env_file: .env
+  #   environment:
+  #     - WORDPRESS_BD_USER=$MYSQL_USER
+  #     - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+  #     - WORDPRESS_DB_NAME=$MYSQL_DATABASE
 volumes:
   db_data:
     driver: local # Define the driver and options under the volume name
