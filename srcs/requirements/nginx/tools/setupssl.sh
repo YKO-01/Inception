@@ -1,10 +1,10 @@
 #!/bin/bash
 
-CND=/CN=${DOMAINE_NAME}
+# CND=/CN=${DOMAINE_NAME}
 
 mkdir -p /etc/nginx/ssl 
-openssl req -x509 -new -out /etc/nginx/ssl/${DOMAINE_NAME}.crt -keyout /etc/nginx/ssl/${DOMAINE_NAME}.key -days 365 -newkey rsa:4096 -sha256 -nodes -subj "${CND}"
-
+openssl req -x509 -new -out /etc/nginx/ssl/${DOMAINE_NAME}.crt -keyout /etc/nginx/ssl/${DOMAINE_NAME}.key -days 365 -newkey rsa:4096 -sha256 -nodes -subj "/CN=${DOMAINE_NAME}"
+nginx -g "daemon off;"
 # openssl genrsa -des3 -passout pass:$PWSSL -out ${DOMAINE_NAME}.key 2048
 # echo "CN = ${DOMAINE_NAME}" >> csr_config.cnf 
 # openssl req -new -key ${DOMAINE_NAME}.key -passin pass:$PWSSL -out ${DOMAINE_NAME}.csr -config csr_config.cnf

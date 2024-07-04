@@ -5,7 +5,7 @@ RUN	apt install openssl -y
 
 #COPY	./conf/csr_config.cnf .
 
-# ENV DOMAINE_NAME=${DOMAINE_NAME}
+# ENV DMNAME=${DOMAINE_NAME}
 
 # RUN mkdir -p /etc/nginx/ssl 
 # RUN openssl req -x509 -new -out /etc/nginx/ssl/${DOMAINE_NAME}.crt -keyout /etc/nginx/ssl/${DOMAINE_NAME}.key -days 365 -newkey rsa:4096 -sha256 -nodes -subj /CN=${DOMAINE_NAME}
@@ -18,8 +18,6 @@ RUN	apt install openssl -y
 # RUN	openssl rsa -passin pass:$PWSSL -in ayakoubi.42.fr.key.pw -out ayakoubi.42.fr.key 
 # RUN	openssl x509 -req -passin pass:$PWSSL -in ayakoubi.42.fr.csr -signkey ayakoubi.42.fr.key -out ayakoubi.42.fr.crt
 
-# RUN	mkdir /etc/nginx/ssl \
-# 	&& cp ayakoubi.42.fr.key ayakoubi.42.fr.crt /etc/nginx/ssl
 
 COPY ./tools/setupssl.sh .
 RUN chmod +x setupssl.sh
@@ -30,7 +28,8 @@ COPY index.html /var/www/html
 EXPOSE	443/tcp
 
 # RUN	service nginx restart
-RUN ./setupssl.sh
+ENTRYPOINT ["./setupssl.sh"]
+# RUN ./setupssl.sh
 
-CMD	["/usr/sbin/nginx", "-g", "daemon off;"]
+#  CMD	["nginx", "-g", "daemon off;"]
 # CMD tail -f

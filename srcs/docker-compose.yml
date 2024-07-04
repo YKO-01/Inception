@@ -14,20 +14,22 @@ services:
     env_file: .env
     volumes:
       - db_data:/var/lib/mysql
-  # wordpress:
-  #   # depends_on:
-  #   #   - db
-  #   build: requirements/wordpress/.
-  #   container_name: mywordpress
-  #   env_file: .env
-  #   environment:
-  #     - WORDPRESS_BD_USER=$MYSQL_USER
-  #     - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
-  #     - WORDPRESS_DB_NAME=$MYSQL_DATABASE
+  wordpress:
+    # depends_on:
+    #   - db
+    build: requirements/wordpress/.
+    container_name: mywordpress
+    env_file: .env
 volumes:
   db_data:
     driver: local # Define the driver and options under the volume name
     driver_opts:
       type: none
       device: ./data/db_data
+      o: bind
+  wp_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./data/wp_data
       o: bind
