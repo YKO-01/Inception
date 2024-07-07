@@ -1,25 +1,45 @@
 version: '3'	
 services: 
-  myserver:
+  nginx:
+    depends_on:
+      - wordpress
     build: requirements/nginx/.
-    image: mynginx
+    image: nginx
+    container_name: nginx
     restart: always
     ports:
     - 443:443
     env_file: .env
-  db:
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - app-network
+
+  mariadb:
     build: requirements/mariadb/.
-    container_name: mymariadb
+    image: mariadb
+    container_name: mariadb
     restart: always
     env_file: .env
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
   wordpress:
-    # depends_on:
-    #   - db
+    depends_on:
+      - mariadb
     build: requirements/wordpress/.
-    container_name: mywordpress
+    image: wordpress
+    container_name: wordpress
     env_file: .env
+    ports:
+      - 9000:9000
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - app-network
+
 volumes:
   db_data:
     driver: local # Define the driver and options under the volume name
@@ -33,3 +53,7 @@ volumes:
       type: none
       device: ./data/wp_data
       o: bind
+
+networks:
+  app-network:
+    driver: bridge

@@ -22,8 +22,8 @@ RUN	apt install openssl -y
 COPY ./tools/setupssl.sh .
 RUN chmod +x setupssl.sh
 
-COPY conf/default /etc/nginx/sites-available/default
-COPY index.html /var/www/html
+# COPY conf/default /etc/nginx/sites-available/default
+# COPY index.html /var/www/html
 
 EXPOSE	443/tcp
 

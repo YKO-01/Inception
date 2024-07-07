@@ -16,6 +16,6 @@ wp config set DB_USER ${MYSQL_USER} --allow-root --path=/var/www/html
 # wp config set DB_PASSWORD ${MYSQL_PASSWORD} --allow-root --path=/usr/share/wordpress
 
 cat /usr/share/wordpress/wp-config.php
-service start php-fpm7.3
+# service start php-fpm7.3
 #tail -f
-exec php-fpm7.3 -F
+exec php-fpm8.2 -F
