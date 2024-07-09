@@ -11,6 +11,6 @@ stop:
 restart: stop start
 
 fclean: down
-	docker image rm mynginx srcs-db
+	docker image rm nginx mariadb wordpress
 re: fclean build up
 .PHONY: build up start down stop restart
