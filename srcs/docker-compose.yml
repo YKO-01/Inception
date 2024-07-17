@@ -1,5 +1,5 @@
-version: '3'	
-services: 
+version: '3'
+services:
   nginx:
     depends_on:
       - wordpress
@@ -47,13 +47,13 @@ volumes:
     driver: local # Define the driver and options under the volume name
     driver_opts:
       type: none
-      device: ./data/db_data
+      device: ~/data/db_data
       o: bind
   wp_data:
     driver: local
     driver_opts:
       type: none
-      device: ./data/wp_data
+      device: ~/data/wp_data
       o: bind
 
 networks:

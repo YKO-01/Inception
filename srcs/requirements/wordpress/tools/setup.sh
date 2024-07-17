@@ -1,6 +1,4 @@
 #!/bin/bash
-# wp config delete SETTING_NAME
-#  wp config create --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --allow-root --path=/usr/share/wordpress
 
 cd /usr/share/wordpress
 cp -r * /var/www/html
@@ -13,10 +11,10 @@ wp config set DB_USER ${MYSQL_USER} --allow-root --path=/var/www/html
 wp config set DB_PASSWORD ${MYSQL_PASSWORD} --allow-root --path=/var/www/html
 wp config set DB_HOST "mariadb" --allow-root --path=/var/www/html
 
-# wp core install --allow-root --url=ayakoubi.42.fr --title=yako --admin_user=root --admin_password=12345 --admin_email=ayakoubi@gmail.com
-# wp user create --allow-root root ayakoubi@gmail.com --role=administrator --user_pass=12345 --path=/var/www/html
-# wp user create --allow-root ahmed ahmed@gmail.com --role=editor --user_pass=12345 --path=/var/www/html
-# wp core install --allow-root --url=ayakoubi.42.fr --title=yako --admin_user=root --admin_password=123 --admin_email=ayakoubi@gmail.com
-# service start php-fpm7.3
-#tail -f
+
+#echo wp core install --allow-root --url=$DOMAINE_NAME --title=yako --admin_user=$WP_USER --admin_password=$WP_PASS --admin_email=$WP_EMAIL
+
+#wp core install --allow-root --url=$DOMAINE_NAME --title=yakoInception --admin_user=$WP_USER --admin_password=$WP_PASS --admin_email=$WP_EMAIL --skip-email --path=/var/www/html
+wp core install --allow-root --url=${DOMAINE_NAME} --title=yako --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=${WP_EMAIL} --path=/var/www/html
+wp user create ${WP_NUSER} ${WP_NEAMIL} --role=editor --user_pass=${WP_NPASS} --allow-root --path=/var/www/html
 exec php-fpm8.2 -F

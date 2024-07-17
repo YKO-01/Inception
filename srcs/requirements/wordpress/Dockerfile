@@ -10,5 +10,4 @@ EXPOSE 9000
 
 COPY ./tools/setup.sh .
 RUN chmod +x setup.sh
-# ENTRYPOINT ["./setup.sh"]
 CMD ["./setup.sh"]

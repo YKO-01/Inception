@@ -1,11 +1,11 @@
 FROM	debian:bookworm
-RUN	apt update -y && apt install nginx -y
+RUN	apt update -y && apt install nginx gettext-base -y
 
 RUN	apt install openssl -y
 
 #COPY	./conf/csr_config.cnf .
 
-# ENV DMNAME=${DOMAINE_NAME}
+#ENV DOMAINENAME=${DOMAINE_NAME}
 
 # RUN mkdir -p /etc/nginx/ssl 
 # RUN openssl req -x509 -new -out /etc/nginx/ssl/${DOMAINE_NAME}.crt -keyout /etc/nginx/ssl/${DOMAINE_NAME}.key -days 365 -newkey rsa:4096 -sha256 -nodes -subj /CN=${DOMAINE_NAME}
@@ -21,8 +21,10 @@ RUN	apt install openssl -y
 
 COPY ./tools/setupssl.sh .
 RUN chmod +x setupssl.sh
-
-COPY conf/default /etc/nginx/sites-available/default
+COPY conf/nginx.conf /etc/nginx/sites-available/
+#RUN chmod 644 /etc/nginx/sites-available/default
+#RUN envsubst "$DOMAINE_NAME" < /etc/nginx/sites-available/default
+#RUN cat /etc/nginx/sites-available/default
 # COPY index.html /var/www/html
 
 EXPOSE	443/tcp
@@ -31,5 +33,5 @@ EXPOSE	443/tcp
 ENTRYPOINT ["./setupssl.sh"]
 # RUN ./setupssl.sh
 
-#  CMD	["nginx", "-g", "daemon off;"]
+#CMD ["envsubst '\$DOMAINE_NAME' < /etc/nginx/sites-available/default"]
 # CMD tail -f
